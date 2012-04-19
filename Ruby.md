@@ -25,6 +25,7 @@ Indention
     end
     ```
 
+
 * Align the parameters of a method call if they span over multiple lines.
 
     ```ruby
@@ -77,14 +78,6 @@ Indention
 
 White Space
 -----------
-
-* Add a single space after an inline comment (`#`)
-
-    ```ruby
-    def some_method
-      # does something
-    end
-    ```
 
 * No spaces after `(`, `[` or before `]`, `)`.
 
@@ -241,12 +234,14 @@ Syntax
     end
     ```
 
-* Use `and` or `or` in conditional statements
+* Use `and` or `or` in conditional statements and control flow.
 
     ```ruby
     if this and that
         # true
     end
+    
+    return if require_admin or require_moderator
     ```
 
 * Do not use a negative `if` condition with an `else` block. Use a positive case first.
@@ -283,7 +278,7 @@ Syntax
         
 * Avoid using the ternary operator (`?:`) except in cases when the expression is trivial or in views.
 
-* Favour modifier `if/unless` usage when you have a single-line body.
+* Favour modifier `if`/`unless` usage when you have a single-line body.
    
     ```ruby
     # bad
@@ -337,7 +332,7 @@ Syntax
     end
     ```
         
-* Rescue blocks don't need to be tied to a 'begin'
+* Rescue blocks don't need to be tied to a `begin`.
 
     ```ruby
     # extraneous begin block
@@ -395,7 +390,7 @@ Idioms
     enabled = true if enabled.nil?
     ```
 
-* Use `%w()` to initialize arrays for hard coded values
+* Use `%w()` to initialize arrays for hard coded values.
 
     ```ruby
     # bad
@@ -406,13 +401,13 @@ Idioms
     # => ["SUCCESS", "FAILED"]
     ````
 
-* Quick mass assignment
+* Quick mass assignment:
 
     ```ruby
     a, b, c, d = 1, 2, 3, 4
     ````
 
-* Array destructuring
+* Array destructuring:
 
     ```ruby
     first, *list = [1, 2, 3, 4]
@@ -429,7 +424,7 @@ Idioms
     # last => 4
     ```
 
-* Use ranges instead of complex comparisons for numbers
+* Use ranges instead of complex comparisons for numbers.
 
     ```ruby
     year = 1972
@@ -440,7 +435,7 @@ Idioms
           end
     ```
 
-* Use labeled parameters to improve readability
+* Use labeled parameters to improve readability.
 
     ```ruby
     def link_to(body, url, html_options = {})
@@ -457,8 +452,8 @@ Idioms
     arguments_and_opts 1, 2, 3, a: 5
     # => arguments: [1, 2, 3] options: { :a => 5 }
     ```
-        
-* Use the splat operator for a variable number of arguments
+    
+* Use the splat operator for a variable number of arguments.
 
     ```ruby
     def say(what, *people)
@@ -474,7 +469,7 @@ Idioms
 Strings
 -------
 
-* Prefer string interpolation to concatenation
+* Prefer string interpolation to concatenation.
 
     ```ruby
     # bad
@@ -484,7 +479,7 @@ Strings
     message = "Successfully deleted #{name}."
     ```
 
-* Use single quote strings unless you need string interpolation
+* Use single quote strings unless you need string interpolation.
 
     ```ruby
     # ok
@@ -589,7 +584,7 @@ Principles
 
 Don't Repeat Yourself: as much as possible try to package your code in a way that limits the amount of duplication. This typically amounts to creating a method that is called by disparate parts of the application or to add common methods of similar objects into a parent class.
 
-**When to use this technique:** When you have multiple lines of code that is identical.
+**When to use this technique:** When you have multiple lines of code that are identical.
 
 ### Return early / return often
 
