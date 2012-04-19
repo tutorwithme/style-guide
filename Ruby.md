@@ -1,6 +1,8 @@
 Ruby Style Guide
 ================
 
+Much of this was taken from [https://github.com/styleguide/ruby](https://github.com/styleguide/ruby) (which was consequently taken from [https://github.com/bbatsov/ruby-style-guide](https://github.com/bbatsov/ruby-style-guide)). Please add to this guide if you find any particular patterns or styles that we've adopted internally. Submit a pull request to ask for feedback (if you're an employee).
+
 Margin
 ------
 
@@ -9,14 +11,53 @@ Keep lines fewer than 80 characters long. Enable the margin line option in your 
 Indention
 ---------
 
-* Use soft-tabs (spaces instead of `\t` characters) with a two space indent.  
-  This might be a setting in your IDE; `TAB ->` key presses should create two space indentions automatically.
-
-* Break long chained method calls into multiple lines. Each line should contain only one method call and be aligned to the first `.` on the first line.
+* Use soft-tabs (spaces instead of `\t` characters) with two spaces per indentation level. This might be a setting in your IDE; `TAB ->` key presses should create two space indentions automatically.
 
     ```ruby
-    @record = Record.find_by_user_id(user_id)
-                    .order('name DESC')
+    # good
+    def some_method
+      do_something
+    end
+    
+    # bad - four spaces
+    def some_method
+        do_something
+    end
+    ```
+
+* Align the parameters of a method call if they span over multiple lines.
+
+    ```ruby
+    # starting point (line is too long)
+    def send_mail(source)
+        Mailer.deliver(to: 'bob@example.com', from: 'us@example.com', subject: 'Important message', body: source.text)
+    end
+    
+    # bad (normal indent)
+    def send_mail(source)
+        Mailer.deliver(
+        to: 'bob@example.com',
+        from: 'us@example.com',
+        subject: 'Important message',
+        body: source.text)
+    end
+    
+    # bad (double indent)
+    def send_mail(source)
+        Mailer.deliver(
+            to: 'bob@example.com',
+            from: 'us@example.com',
+            subject: 'Important message',
+            body: source.text)
+    end
+    
+    # good
+    def send_mail(source)
+        Mailer.deliver(to: 'bob@example.com',
+                        from: 'us@example.com',
+                        subject: 'Important message',
+                        body: source.text)
+    end
     ```
                         
 * Indent the `public`, `protected`, and `private` methods as much the method definitions they apply to. Leave one blank line above them.
@@ -73,10 +114,24 @@ White Space
     end
     ```
    
-* Do use parentheses `(` `)` around parameters when making method calls on an object.
+* Omit parentheses around parameters for methods that are part of an internal DSL (e.g. Rake, Rails, RSpec), methods that are with "keyword" status in Ruby (e.g. attr_reader, puts) and attribute access methods. Use parentheses around the arguments of all other method invocations.
 
     ```ruby
-    @user = User.find(params[:user_id])
+    class Person
+      attr_reader :name, :age
+    
+      # omitted
+    end
+    
+    temperance = Person.new('Temperance', 30)
+    temperance.name
+    
+    puts temperance.age
+    
+    x = Math.sin(y)
+    array.delete(e)
+    
+    link_to 'Help', help_path
     ```
     
 * Do not use parentheses `(` `)` around `if` conditions unless the condition contains an assignment.
@@ -96,12 +151,6 @@ White Space
     if (x = self.next_value)
       # body omitted
     end
-    ```
-
-* Do not use parentheses `(` `)` in views when using Rails helper methods in views.
-
-    ```ruby
-    link_to 'Help', help_path
     ```
         
 * Never put a space between a method name and the opening parenthesis.
@@ -156,14 +205,26 @@ White Space
 Syntax
 ------
 
-* Use Ruby 1.9 key syntax over the hash rocket
+* Use Ruby 1.9 literal hash syntax in preference to the the hashrocket syntax.
 
     ```ruby
     # bad
     Article.where(:published => true).all
 
     # good
-    Article.where(published: true).all
+    Article.where(published: true).all        
+    ```
+    
+* Use the new lambda literal syntax.
+
+    ```ruby
+    # bad
+    lambda = lambda { |a, b| a + b }
+    lambda.call(1, 2)
+    
+    # good
+    lambda = ->(a, b) { a + b }
+    lambda.(1, 2)
     ```
 
 * Avoid return when not required (remember methods (implicitly) always return something in Ruby)
@@ -436,22 +497,36 @@ Strings
     message = "Successfully deleted #{name}."
     ```
         
-* Use `<<` operator to concatonate strings instead of `+`, when inside loops. ([More on this.](http://blog.purepistos.net/index.php/2008/07/14/benchmarking-ruby-string-interpolation-concatenation-and-appending/))
-
+* Avoid using `String#+` when you need to construct large data chunks. Instead, use `String#<<`. Concatenation mutates the string instance in-place and is always faster than `String#+`, which creates a bunch of new string objects.
+    
     ```ruby
-    message = ""
-
-    # ok
-    users.each do |user|
-      message += user.full_name
-    end
-
-    # better
-    users.each do |user|
-      message <<= user.full_name
+    # good and also fast
+    html = ''
+    html << '<h1>Page title</h1>'
+    
+    paragraphs.each do |paragraph|
+      html << "<p>#{paragraph}</p>"
     end
     ```
+* Use `%()` for single-line strings which require both interpolation and embedded double-quotes. For multi-line strings, prefer heredocs.
 
+    ```ruby
+    # bad (no interpolation needed)
+    %(<div class="text">Some text</div>)
+    # should be '<div class="text">Some text</div>'
+    
+    # bad (no double-quotes)
+    %(This is #{quality} style)
+    # should be "This is #{quality} style"
+    
+    # bad (multiple lines)
+    %(<div>\n<span class="big">#{exclamation}</span>\n</div>)
+    # should be a heredoc.
+    
+    # good (requires interpolation, has quotes, single line)
+    %(<tr><td class="name">#{name}</td>)
+    ```
+    
 Naming
 ------
 
@@ -461,6 +536,51 @@ Naming
 * The names of predicate methods (methods that return a boolean value) should end in a question mark. (i.e. `Array#empty?`). Do not prefix these with `is_`: the question mark already indicates that it is a predicate.
 * The names of potentially "dangerous" methods (i.e. methods that modify `self` or the arguments, `exit!`, etc.) should end with an exclamation mark. Bang methods should only exist if a non-bang method exists. ([More on this](http://dablog.rubypal.com/2007/8/15/bang-methods-or-danger-will-rubyist)).
 
+Comments
+--------
+
+* Write self-documenting code and ignore the rest of this section. Seriously!
+* Use one space after `#`.
+* Comments longer than a word are capitalized and use punctuation. Use one space after periods.
+* Avoid superfluous comments.
+
+    ```ruby
+    # bad
+    counter += 1 # increments counter by one
+    ```
+
+* Keep existing comments up-to-date. An outdated is worse than no comment at all.
+Avoid writing comments to explain bad code. Refactor the code to make it self-explanatory. (Do or do not - there is no try.)
+
+Annotations
+-----------
+
+Annotations should usually be written on the line immediately above the relevant code.
+The annotation keyword is followed by a colon and a space, then a note describing the problem.
+If multiple lines are required to describe the problem, subsequent lines should be indented two spaces after the #.
+
+```ruby
+def bar
+    # FIXME: This has crashed occasionally since v3.2.1. It may
+    #   be related to the BarBazUtil upgrade.
+    baz(:quux)
+end
+```
+
+In cases where the problem is so obvious that any documentation would be redundant, annotations may be left at the end of the offending line with no note. This usage should be the exception and not the rule.
+
+```ruby
+def bar
+  sleep 100 # OPTIMIZE
+end
+```
+
+* Use `TODO` to note missing features or functionality that should be added at a later date.
+* Use `FIXME` to note broken code that needs to be fixed.
+* Use `OPTIMIZE` to note slow or inefficient code that may cause performance problems.
+* Use `HACK` to note code smells where questionable coding practices were used and should be refactored away.
+* Use `REVIEW` to note anything that should be looked at to confirm it is working as intended. For example: `REVIEW: Are we sure this is how the client does X currently?`
+* Use other custom annotation keywords if it feels appropriate, but be sure to document them in your project's `README` or similar.
 
 Principles
 ----------
