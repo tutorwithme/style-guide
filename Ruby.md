@@ -263,21 +263,21 @@ Syntax
       user.status = 'active'
     end
 
-    # ok: using unless
+    # passable (using unless)
     unless user.active?
       user.status = 'inactive'
     else
       user.status = 'active'
     end
 
-    # better: try inverting the code blocks
+    # better (inverting the body)
     if user.active?
       user.status = 'active'
     else
       user.status = 'inactive'
     end
 
-    # best: try using a positive conditional
+    # best (positive case first)
     if user.inactive?
       user.status = 'inactive'
     else
@@ -361,7 +361,7 @@ Syntax
     end
     ```
 
-* Use _ for unused block parameters.
+* Use `_` for unused block parameters.
 
     ```ruby    
     # bad
