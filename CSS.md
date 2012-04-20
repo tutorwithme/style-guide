@@ -17,6 +17,7 @@ Coding Style
 * Use `rgba(0,0,0,0.5)` only if you need opacity control.
 * Never use a unit (`px`, `em`, etc.) when the value is `0`.
 * Use EMs (`em`) for font sizes. Here is a handy [px to em converter](http://pxtoem.com/).
+* List properties in alphabetical order.
 
 Here is good example syntax:
 
