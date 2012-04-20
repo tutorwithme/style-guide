@@ -462,7 +462,7 @@ Idioms
     # => arguments: [1, 2, 3] options: { :a => 5 }
     ```
     
-* Use the splat operator for a variable number of arguments.
+* Use the splat operator (`*`) for a variable number of arguments.
 
     ```ruby
     def say(what, *people)
@@ -591,9 +591,9 @@ Principles
 
 ### DRY
 
-Don't Repeat Yourself: as much as possible try to package your code in a way that limits the amount of duplication. This typically amounts to creating a method that is called by disparate parts of the application or to add common methods of similar objects into a parent class.
+Don't Repeat Yourself: as much as possible try to write your code in a way that limits the amount of duplication. This typically amounts to creating a method in a helper, library or parent class so that it can be accessed where needed instead of being duplicated.
 
-**When to use this technique:** When you have multiple lines of code that are identical.
+**When to use this technique:** When you have multiple lines of code that are identical and needed in more than one place in the application.
 
 ### Return early / return often
 
