@@ -649,7 +649,7 @@ MVC stands for Model-View-Controller. The flow typically goes from Controller to
 
 #### Models
 
-Models deal with data and all the business logic. In Rails models typically are direct representations of a database table. Rails models contain (but not limited to) validations, attribute access protection, associations, callbacks and user methods.
+Models deal with data and all the business logic. In Rails, models typically are direct representations of a database table. Rails models contain (but not limited to) validations, attribute access protection, associations, callbacks and user methods.
 
 #### Views
 
@@ -657,7 +657,7 @@ Views are the output that is displayed to the user. In web framework like Rails 
 
 **PITFALL: Controller logic in views**
 
-```ruby
+```rhtml
 <!-- app/views/people/index.rhtml -->
 <% people = Person.find(
       :conditions => ["added_at > ? and deleted = ?", Time.now.utc, false],
