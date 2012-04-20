@@ -86,7 +86,7 @@ White Space
     [1, 2, 3].length
     ``` 
 
-* Use spaces around operators, after commas, colons and semicolons, around { and before }.
+* Use spaces around operators, after commas, colons and semicolons, around `{` and before `}`.
 
     ```ruby
     sum = 1 + 2
@@ -95,7 +95,7 @@ White Space
     [1, 2, 3].each { |e| puts e }
     ```
     
-* Do use parentheses `(` `)` around parameters in method definitions.
+* Use parentheses `(` `)` around parameters in method definitions when one or more parameters are needed.
 
     ```ruby
     def some_method
@@ -127,7 +127,7 @@ White Space
     link_to 'Help', help_path
     ```
     
-* Do not use parentheses `(` `)` around `if` conditions unless the condition contains an assignment.
+* Omit parentheses around `if` conditions unless the condition contains an assignment.
 
     ```ruby
     # bad
