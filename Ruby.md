@@ -680,13 +680,13 @@ In the code above the "C" in MVC is completely bypassed and results in excessive
 
 Controllers are the entry point of each page the user requests and deal with the inputs. This is also where you determine the models you will retrieve from and the view you are going to display (this is done automatically, however).
 
-So what does "Fat Models, Skinny Controllers" mean? It means to write most logic into models instead of controllers. This results in more code in models than controllers. In Rails, this is good because more often that not you end up having more controllers than models yet many controllers use the same models and helps reduce repetition (see DRY).
+So what does "Fat Models, Skinny Controllers" mean? It means to write most logic into models instead of controllers. This results in more code in models than controllers. In Rails, this is good because more often that not you end up having more controllers than models and yet many controllers use the same models and helps reduce repetition (see DRY).
 
 **When to use this technique:** Always. If you have more than 10 lines of controller code it's a sign you need to move some code into the model.
 
 ### Decorators
 
-Rails does not support decorators by default. We use the `draper` gem to decorate our models.
+Rails does not support decorators by default. We use the [draper](https://github.com/jcasimir/draper) gem to decorate our models.
 
 What are decorators? They are like helper methods wrapped around models (data) that deal with presentation. For example if you have a `price` field in a `Course` model, then displaying this value should have the currency next to it, be of exactly 2 decimal places and use a thousand separator when needed. This type of logic can be done in the model but a decorator is best suited to do this as it deals strictly with formatting.
 
