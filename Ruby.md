@@ -602,7 +602,7 @@ When reading code one must keep in mind all the variables and conditions to unde
 ```ruby
 def send_alert(user)
   if user.active?
-	 if user.has_alerts?
+    if user.has_alerts?
       if user.notifications.receive_emails?
         user.notifications.send
       else
