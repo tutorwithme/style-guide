@@ -59,6 +59,15 @@ Indention
                        subject: 'Important message',
                        body: source.text)
     end
+    
+    # better (see white space rule below)
+    def send_mail(source)
+        Mailer.deliver \
+          to: 'bob@example.com',
+          from: 'us@example.com',
+          subject: 'Important message',
+          body: source.text
+    end
     ```
                         
 * Indent the `public`, `protected`, and `private` methods as much the method definitions they apply to. Leave one blank line above them.
@@ -156,7 +165,7 @@ White Space
     f(3 + 2) + 1
     ```
                     
-* Use `\` when a method requires a long list of parameters. Align the parameters below the beginning of the method chain (if any) and indent again.
+* Use `\` when a method requires a long list of parameters. Align the parameters below the beginning of the method chain and indent it.
 
     ```ruby
     alert = Alert.new \
