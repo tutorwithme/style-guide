@@ -287,7 +287,7 @@ Syntax
         
 * Avoid using the ternary operator (`?:`) except in cases when the expression is trivial or in views.
 
-* Favour modifier `if`/`unless` usage when you have a single-line body.
+* Favour modifier `if`/`unless` usage when you have a single-line body unless the body or condition is very long. 
    
     ```ruby
     # bad
@@ -297,6 +297,14 @@ Syntax
 
     # good
     do_something if some_condition
+    
+    # bad
+    do_something_really_long_that_takes_up_a_lot_of_space if some_condition_that_is_really_long_and_takes_up_a_lot_of_space
+    
+    # good
+    if some_condition_that_is_really_long_and_takes_up_a_lot_of_space
+      do_something_really_long_that_takes_up_a_lot_of_space 
+    end
     ```
         
 * Never use `for`, unless you know exactly why. Most of the time iterators should be used instead. `for` is implemented in terms of `each` (so you're adding a level of indirection), but with a twist - `for` doesn't introduce a new scope (unlike `each`) and variables defined in its block will be visible outside it.
