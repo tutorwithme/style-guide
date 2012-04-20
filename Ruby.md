@@ -55,9 +55,9 @@ Indention
     # good
     def send_mail(source)
         Mailer.deliver(to: 'bob@example.com',
-                        from: 'us@example.com',
-                        subject: 'Important message',
-                        body: source.text)
+                       from: 'us@example.com',
+                       subject: 'Important message',
+                       body: source.text)
     end
     ```
                         
