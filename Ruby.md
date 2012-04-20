@@ -688,7 +688,7 @@ So what does "Fat Models, Skinny Controllers" mean? It means to write most logic
 
 Rails does not support decorators by default. We use the [draper](https://github.com/jcasimir/draper) gem to decorate our models.
 
-What are decorators? They are like helper methods wrapped around models (data) that deal with presentation. For example if you have a `price` field in a `Course` model, then displaying this value should have the currency next to it, be of exactly 2 decimal places and use a thousand separator when needed. This type of logic can be done in the model but a decorator is best suited to do this as it deals strictly with formatting.
+What are decorators? They are like helper methods wrapped around models and are used for presentation. For example, if you have a `price` field in a `Course` model, then displaying this value should have the currency next to it, be of exactly 2 decimal places and use a thousand separator when needed. This type of logic can be done in the model but a decorator is best suited to do this as it deals strictly with formatting.
 
 How do decorators work? Decorators need a model to "decorate." A decorator cannot exist without an underlaying model. In programming terms, it's basically sub-classing a model class. Here's an example:
 
