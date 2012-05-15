@@ -20,8 +20,8 @@ Whitespace
 * Break long tags after attributes:
 
     ```html
-    <a href="http://www.w3.org/TR/2012/WD-html5-20120329/" title="HTML5 W3C Draft Document"
-       target="_blank" />
+    <a href="http://www.w3.org/TR/2012/WD-html5-20120329/"
+       title="HTML5 W3C Draft Document" target="_blank" />
     ```
 * Indent the content of block tags if the content spans more than a single line:
 
