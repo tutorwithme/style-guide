@@ -62,4 +62,5 @@ Guidelines
     </label>
     ```   
 
-* Always include `<thead>` and `<tbody>` tags in tables even though you don't really need them.
+* Always include `<thead>` and `<tbody>` tags in tables. In shome browsers this creates weird behavior
+  when working with the DOM in JavaScript. Can also be useful to style elements using CSS.
