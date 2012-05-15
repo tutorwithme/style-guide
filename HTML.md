@@ -5,11 +5,11 @@ This style guide applies to regular HTML files (.html, .htm), Embeddded Ruby HTM
 
 Doctype
 -------
-For HTML 5, the doctype is quite easy to remember:
+For HTML 5, the doctype is quite easy to remember.
 
-    ```html
-    <!DOCTYPE html>
-    ```
+```html
+<!DOCTYPE html>
+```
 
 Whitespace
 ----------
