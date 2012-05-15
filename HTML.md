@@ -58,7 +58,7 @@ Guidelines
       <input type="radio" name="answer" value="1" /> Yes
     </label>
     <label>
-      <input type="radio" name="answer" value="0" /> 
+      <input type="radio" name="answer" value="0" /> No
     </label>
     ```   
 
