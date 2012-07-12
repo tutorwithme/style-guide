@@ -15,7 +15,7 @@ Whitespace
 ----------
 
 * Keep lines fewer than 80 characters long. Enable the margin line option in your IDE if you have this function available.
-* Use soft-tabs (spaces instead of `\t` characters) with **two spaces** per indentation level. This might be a setting in your IDE; `TAB ->` key presses should create four spaces  of indention automatically.
+* Use soft-tabs (spaces instead of `\t` characters) with **2 spaces** per indentation level. This might be a setting in your IDE; `TAB ->` key presses should create two spaces of indention automatically.
 * Hard break lines of text that are longer than 80 characters.
 * Break long tags after attributes:
 
